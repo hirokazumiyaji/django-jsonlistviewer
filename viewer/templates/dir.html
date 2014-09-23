@@ -1,0 +1,14 @@
+{% if node %}
+{% if node.is_dir %}
+<tr class="treegrid-{{ node.id }} {% if node.parent %}treegrid-parent-{{ node.parent.id }}{% endif %}">
+  <td>{{ node.name }}</td>
+</tr>
+{% for childnode in node.children %}
+{% include 'dir.html' with node=childnode only %}
+{% endfor %}
+{% else %}
+<tr class="treegrid-{{ node.id }} {% if node.parent %}treegrid-parent-{{ node.parent.id }}{% endif %}">
+  <td><a href="{% url 'viewer-detail' node.url_path %}">{{ node.name }}</a></td>
+</tr>
+{% endif %}
+{% endif %}

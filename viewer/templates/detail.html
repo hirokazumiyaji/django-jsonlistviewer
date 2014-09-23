@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxazan.github.io/jquery-treegrid/css/jquery.treegrid.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <script type="text/javascript">
+      angular.module("viewerApp", []).config(['$interpolateProvider', function($interpolateProvider) {
+        $interpolateProvider.startSymbol('<%');
+        $interpolateProvider.endSymbol('%>');
+      }]);
+      function tableController($http, $scope) {
+        $http.get('{% url 'viewer-detail-data' url_path %}').
+          success(function(data, status, headers, config) {
+            $scope.columns = data.columns;
+            $scope.records = data.records;
+            console.log($scope.columns);
+            console.log($scope.records);
+          }).
+        error(function(data, status, headers, config) {
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div ng-app="viewerApp">
+      <div ng-controller="tableController">
+        <input ng-model="search.$">
+        <table id="searchResults" class="table table-striped">
+          <thead>
+            <tr>
+              <th ng-repeat="column in columns track by $index"><% column %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="record in records | filter:search">
+              <td ng-repeat="column in record track by $index">
+                <% column %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://maxazan.github.io/jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script src="http://maxazan.github.io/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+  </body>
+</html>

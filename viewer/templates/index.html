@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxazan.github.io/jquery-treegrid/css/jquery.treegrid.css">
+  </head>
+  <body>
+    <table class="table tree">
+      {% include 'dir.html' with node=node only %}
+    </table>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="http://maxazan.github.io/jquery-treegrid/js/jquery.treegrid.js"></script>
+    <script src="http://maxazan.github.io/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('.tree').treegrid();
+      });
+    </script>
+  </body>
+</html>
